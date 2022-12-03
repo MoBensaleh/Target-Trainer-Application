@@ -7,9 +7,12 @@ public class BlobModel {
     private List<BlobModelListener> subscribers;
     private List<Blob> blobs;
 
+    ArrayList<Blob> tempLassoSelectionList;
+
     public BlobModel() {
         subscribers = new ArrayList<>();
         blobs = new ArrayList<>();
+        tempLassoSelectionList = new ArrayList<>();
     }
 
     public void addBlob(double x, double y) {
@@ -75,6 +78,51 @@ public class BlobModel {
     public List<Blob> areaHit(double x, double y) {
         return blobs.stream().filter(b -> b.contains(x,y)).collect(Collectors.toList());
     }
+
+    /**
+     * Method to return all blobs that are within the given rectangle for rubber-band selection.
+     *
+     * @param rubberBand : rectangle to check against
+     * @return : list of blobs that are within the rectangle
+     */
+    public List<Blob> detectRubberBandHit(RubberBandRect rubberBand) {
+        // calculate x, y coordinate of the rectangle (left and right)
+        double x1, y1, x2, y2;
+        x1 = rubberBand.left;
+        y1 = rubberBand.top;
+        x2 = x1 + rubberBand.width;
+        y2 = y1 + rubberBand.height;
+        // add every ship that is within the rectangle
+        return blobs.stream().filter(s -> s.isContainedWithinRect(x1, x2, y1, y2)).collect(Collectors.toList());
+
+    }
+
+    /**
+     * Method to return all blobs that are within the given rectangle for rubber-band selection.
+     *
+     * @return
+     */
+    public void addToLassoHitList(Blob b) {
+        tempLassoSelectionList.add(b);
+    }
+
+    /**
+     * Method to return all blobs that are within the given lasso for lasso selection.
+     *
+     * @return
+     */
+    public ArrayList<Blob> getLassoHitList() {
+        return tempLassoSelectionList;
+    }
+
+    /**
+     * Method to clear the temporary array list used for holding the selected blobs when checking for lasso hit.
+     */
+    public void clearLassoSelection() {
+        tempLassoSelectionList = new ArrayList<>();
+
+    }
+
 
     // part 2: alternate method that does not use streams
     public List<Blob> areaHit2(double x, double y, double cursorRadius) {

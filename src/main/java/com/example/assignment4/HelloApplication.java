@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
 
         scene.setOnKeyPressed(uiRoot::setOnKeyPressed);
 
-        stage.setTitle("Hello!");
+        stage.setTitle("Target Trainer");
         stage.setScene(scene);
         stage.show();
     }
