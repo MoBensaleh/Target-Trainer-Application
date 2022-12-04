@@ -1,5 +1,7 @@
 package com.example.assignment4;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -117,9 +119,9 @@ public class BlobController {
     public void handleReleased(MouseEvent event) {
         switch (currentState) {
             case PREPARE_CREATE -> {
-                    model.addBlob(event.getX(), event.getY());
+                    iModel.addToUndo(new CreateCommand(model, event.getX(), event.getY()));
+                    iModel.peekUndo().doIt();
                     currentState = State.READY;
-
             }
             case DRAGGING -> {
                 //iModel.unselect(); // part 1 - remove this so selection is persistent
@@ -146,6 +148,44 @@ public class BlobController {
                     iModel.addSelected(rubberHitBlobs);
                 }
                 iModel.clearLasso();
+            }
+        }
+    }
+
+    /**
+     * Method to handle key presses. Supports cut, copy, paste, undo, and redo for all actions related to blobs.
+     *
+     * @param keyEvent key event
+     */
+    public void handleKeyPressed(KeyEvent keyEvent) {
+        switch (currentState) {
+            case READY -> {
+                if (keyEvent.isControlDown()) {
+                    if (keyEvent.getCode() == KeyCode.Z) {
+                        // event: c pressed for copy
+                        // side effect: currently selected items are copied to the clipboard
+                        if(iModel.undoStack.size() > 0){
+                            iModel.addToRedo(iModel.peekUndo());
+                            iModel.peekUndo().undo();
+                            iModel.popUndo();
+                        }
+                    }
+                    else if (keyEvent.getCode() == KeyCode.R) {
+                        // event: x pressed for cut
+                        // side effect: currently selected items are removed from the selection and added to the clipboard
+                        // and items are removed from the model
+                        if(iModel.redoStack.size()>0){
+                            iModel.addToUndo(iModel.peekRedo());
+                            iModel.peekRedo().doIt();
+                            iModel.popRedo();
+                        }
+                    }
+//                    } else if (keyEvent.getCode() == KeyCode.V) {
+//                        // event: v pressed for paste
+//                        // side effect: items from the clipboard are made the new selection and are added to the model
+//                        model.add(iModel.pasteFromClipboard());
+//                    }
+                }
             }
         }
     }

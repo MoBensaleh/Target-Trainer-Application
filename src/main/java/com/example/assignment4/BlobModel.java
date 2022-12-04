@@ -15,8 +15,15 @@ public class BlobModel {
         tempLassoSelectionList = new ArrayList<>();
     }
 
-    public void addBlob(double x, double y) {
-        blobs.add(new Blob(x,y));
+    public Blob addBlob(double x, double y) {
+        Blob newBlob = new Blob(x,y);
+        blobs.add(newBlob);
+        notifySubscribers();
+        return newBlob;
+    }
+
+    public void removeBlob(Blob b) {
+        blobs.remove(b);
         notifySubscribers();
     }
 
@@ -36,6 +43,8 @@ public class BlobModel {
         notifySubscribers();
     }
 
+
+
     public void addSubscriber(BlobModelListener sub) {
         subscribers.add(sub);
     }
@@ -54,6 +63,7 @@ public class BlobModel {
         }
         return false;
     }
+
 
     public Blob whichHit(double x, double y) {
         for (Blob b : blobs) {

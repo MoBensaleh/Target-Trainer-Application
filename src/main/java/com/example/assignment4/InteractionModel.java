@@ -2,10 +2,7 @@ package com.example.assignment4;
 
 import javafx.geometry.Point2D;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class InteractionModel {
     List<IModelListener> subscribers;
@@ -17,10 +14,15 @@ public class InteractionModel {
     List<Point2D> points; // Lasso
     boolean pathComplete;
 
+    Stack<TargetCommand> undoStack;
+    Stack<TargetCommand> redoStack;
+
     public InteractionModel() {
         subscribers = new ArrayList<>();
         selection = new ArrayList<>(); // part 1
         points = new ArrayList<>();
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
     }
 
     public void addSubscriber(IModelListener sub) {
@@ -168,6 +170,26 @@ public class InteractionModel {
     public void setPathComplete(){
         pathComplete = true;
         notifySubscribers();
+    }
+
+    public void addToUndo(TargetCommand command){
+        undoStack.push(command);
+    }
+    public TargetCommand peekUndo(){
+        return undoStack.peek();
+    }
+    public void popUndo(){
+        undoStack.pop();
+    }
+    public void addToRedo(TargetCommand command){
+        redoStack.push(command);
+    }
+    public TargetCommand peekRedo(){
+        return redoStack.peek();
+    }
+
+    public void popRedo(){
+        redoStack.pop();
     }
 
 

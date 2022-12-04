@@ -32,5 +32,8 @@ public class MainUI extends StackPane {
         if (event.getCode() == KeyCode.DELETE || event.getCode() == KeyCode.BACK_SPACE) {
             this.controller.deleteSelected();
         }
+        else{
+            this.controller.handleKeyPressed(event);
+        }
     }
 }
