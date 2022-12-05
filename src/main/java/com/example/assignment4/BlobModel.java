@@ -86,7 +86,7 @@ public class BlobModel {
         notifySubscribers();
     }
 
-    public void resizeShapes(List<Blob> selection, double dX) {
+    public void resizeBlobs(List<Blob> selection, double dX) {
         selection.forEach(b -> b.resize(dX));
         notifySubscribers();
     }

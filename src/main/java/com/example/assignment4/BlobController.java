@@ -16,7 +16,7 @@ public class BlobController {
     double initialX, initialY;
 
     List<Blob> hitList;
-    enum State {READY, PREPARE_CREATE, DRAGGING, RUBBER_BAND_LASSO}
+    enum State {READY, PREPARE_CREATE, MOVING, RESIZING, RUBBER_BAND_LASSO}
 
     State currentState = State.READY;
 
@@ -69,8 +69,16 @@ public class BlobController {
                             iModel.addSelected(hitList); // part 2
                         }
                     }
-                    currentState = State.DRAGGING;
-                } else {
+
+                    // Check whether we are resizing or moving a blob for drag event
+                    if(event.isShiftDown()){
+                        currentState = State.RESIZING;
+                    }
+                    else{
+                        currentState = State.MOVING;
+                    }
+                }
+                else {
                     if(event.isShiftDown()){
                         currentState = State.PREPARE_CREATE;
                     }
@@ -105,14 +113,13 @@ public class BlobController {
             case PREPARE_CREATE -> {
                 currentState = State.READY;
             }
-            case DRAGGING -> {
-                // model.moveBlob(iModel.getSelected(), dX,dY); // part 1
-                if(event.isShiftDown()){
-                    model.resizeShapes(iModel.getSelection(), dX);
-                }
-                else{
-                    model.moveBlobs(iModel.getSelection(), dX, dY);
-                }
+            case RESIZING -> {
+                model.resizeBlobs(iModel.getSelection(), dX);
+
+            }
+
+            case MOVING -> {
+                model.moveBlobs(iModel.getSelection(), dX, dY);
             }
             // Mouse move on Rubber state resizes the rubber-band rectangle used for selection
             case RUBBER_BAND_LASSO -> iModel.resizeRubberBandLasso(rubberX, rubberY, event.getX(), event.getY());
@@ -120,15 +127,21 @@ public class BlobController {
     }
 
     public void handleReleased(MouseEvent event) {
+        dX = event.getX() - initialX;
+        dY = event.getY() - initialY;
+
         switch (currentState) {
             case PREPARE_CREATE -> {
                     iModel.addToUndo(new CreateCommand(model, event.getX(), event.getY()));
                     iModel.peekUndo().doIt();
                     currentState = State.READY;
             }
-            case DRAGGING -> {
-                dX = event.getX() - initialX;
-                dY = event.getY() - initialY;
+            case RESIZING -> {
+                iModel.addToUndo(new ResizeCommand(model, iModel.getSelection(), dX));
+                currentState = State.READY;
+
+            }
+            case MOVING -> {
                 //iModel.unselect(); // part 1 - remove this so selection is persistent
                 iModel.addToUndo(new MoveCommand(model, iModel.getSelection(), dX,  dY));
                 currentState = State.READY;
