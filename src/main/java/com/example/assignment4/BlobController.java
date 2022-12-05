@@ -13,6 +13,7 @@ public class BlobController {
     InteractionModel iModel;
     double prevX, prevY, rubberX, rubberY;;
     double dX, dY;
+    double initialX, initialY;
 
     List<Blob> hitList;
     enum State {READY, PREPARE_CREATE, DRAGGING, RUBBER_BAND_LASSO}
@@ -51,6 +52,10 @@ public class BlobController {
                 //Blob b = model.whichHit(event.getX(),event.getY()); // part 2
                 hitList = model.areaHit(event.getX(), event.getY()); // part 2
                 if (hitList.size() > 0) { // part 2
+                    prevX = event.getX();
+                    prevY = event.getY();
+                    initialX = event.getX();
+                    initialY = event.getY();
 
                     if (event.isControlDown()) { // part 1
                         //iModel.setSelected(b); // part 1
@@ -64,8 +69,6 @@ public class BlobController {
                             iModel.addSelected(hitList); // part 2
                         }
                     }
-                    prevX = event.getX();
-                    prevY = event.getY();
                     currentState = State.DRAGGING;
                 } else {
                     if(event.isShiftDown()){
@@ -93,6 +96,7 @@ public class BlobController {
     }
 
     public void handleDragged(MouseEvent event) {
+
         dX = event.getX() - prevX;
         dY = event.getY() - prevY;
         prevX = event.getX();
@@ -107,8 +111,7 @@ public class BlobController {
                     model.resizeShapes(iModel.getSelection(), dX);
                 }
                 else{
-                    model.moveBlobs(iModel.getSelection(), dX, dY); // part 1 (handle moving multiple)
-
+                    model.moveBlobs(iModel.getSelection(), dX, dY);
                 }
             }
             // Mouse move on Rubber state resizes the rubber-band rectangle used for selection
@@ -124,7 +127,10 @@ public class BlobController {
                     currentState = State.READY;
             }
             case DRAGGING -> {
+                dX = event.getX() - initialX;
+                dY = event.getY() - initialY;
                 //iModel.unselect(); // part 1 - remove this so selection is persistent
+                iModel.addToUndo(new MoveCommand(model, iModel.getSelection(), dX,  dY));
                 currentState = State.READY;
             }
 
