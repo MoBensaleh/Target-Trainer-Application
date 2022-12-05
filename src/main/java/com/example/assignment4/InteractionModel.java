@@ -5,10 +5,8 @@ import javafx.geometry.Point2D;
 import java.util.*;
 
 public class InteractionModel {
-    List<IModelListener> subscribers;
-    Blob selected; // now superseded by variable 'selection'
-    List<Blob> selection; // part 1
-    double cursorX, cursorY; // part 2
+    ArrayList<IModelListener> subscribers;
+    ArrayList<Blob> selection; // part 1
     RubberBandRect rubberBandRect;
 
     List<Point2D> points; // Lasso
@@ -16,6 +14,7 @@ public class InteractionModel {
 
     Stack<TargetCommand> undoStack;
     Stack<TargetCommand> redoStack;
+    TargetClipboard clipboard;
 
     public InteractionModel() {
         subscribers = new ArrayList<>();
@@ -23,6 +22,7 @@ public class InteractionModel {
         points = new ArrayList<>();
         undoStack = new Stack<>();
         redoStack = new Stack<>();
+        clipboard = new TargetClipboard();
     }
 
     public void addSubscriber(IModelListener sub) {
@@ -31,6 +31,34 @@ public class InteractionModel {
 
     private void notifySubscribers() {
         subscribers.forEach(s -> s.iModelChanged());
+    }
+
+    /**
+     * Method to cut the current selected blobs to the clipboard.
+     *
+     * @return : the list of current selected blobs
+     */
+    public ArrayList<Blob> cutToClipboard() {
+        clipboard.addItems(selection);
+        return selection;
+    }
+
+    /**
+     * Method to copy the current selected blobs to the clipboard.
+     */
+    public void copyToClipboard() {
+        clipboard.addItems(selection);
+    }
+
+    /**
+     * Method to paste the blobs from the clipboard and set those blobs as current selection.
+     *
+     * @return : Blobs from the clipboard
+     */
+    public ArrayList<Blob> pasteFromClipboard() {
+        ArrayList<Blob> pastedBlobs = clipboard.getItems();
+        selection = pastedBlobs;
+        return pastedBlobs;
     }
 
 //     part 2: add method
@@ -59,25 +87,12 @@ public class InteractionModel {
     }
 
 
-    // part 1: this method now superseded by select()
-    // we can remove this method
-    public void setSelected(Blob b) {
-        selected = b;
-        notifySubscribers();
-    }
-
     // part 1: add method
     public void clearSelection() {
         selection.clear();
         notifySubscribers();
     }
 
-    // part 1: this method is now superseded by clearSelection
-    // (we can remove this method)
-    public void unselect() {
-        selected = null;
-        notifySubscribers();
-    }
 
     // part 1: add method
     public boolean isSelected(Blob b) {
@@ -192,16 +207,5 @@ public class InteractionModel {
         redoStack.pop();
     }
 
-
-
-    // part 2: add method
-    public double getCursorX() {
-        return cursorX;
-    }
-
-    // part 2: add method
-    public double getCursorY() {
-        return cursorY;
-    }
 }
 

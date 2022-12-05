@@ -70,6 +70,26 @@ public class BlobModel {
         return blobs;
     }
 
+    /**
+     * Method to add blobs to the model.
+     *
+     * @param blobList : list of blobs to be added
+     */
+    public void addBlobList(ArrayList<Blob> blobList) {
+        blobs.addAll(blobList);
+        notifySubscribers();
+    }
+
+    /**
+     * Method to remove blobs from the model.
+     *
+     * @param blobList : list of blobs to be removed
+     */
+    public void removeBlobList(ArrayList<Blob> blobList) {
+        blobs.removeAll(blobList);
+        notifySubscribers();
+    }
+
     public boolean hitBlob(double x, double y) {
         for (Blob b : blobs) {
             if (b.contains(x,y)) return true;
@@ -144,16 +164,6 @@ public class BlobModel {
     public void clearLassoSelection() {
         tempLassoSelectionList = new ArrayList<>();
 
-    }
-
-
-    // part 2: alternate method that does not use streams
-    public List<Blob> areaHit2(double x, double y, double cursorRadius) {
-        List<Blob> hitList = new ArrayList<>();
-        blobs.forEach(b -> {
-            if (b.contains(x,y)) hitList.add(b);
-        });
-        return hitList;
     }
 
 }

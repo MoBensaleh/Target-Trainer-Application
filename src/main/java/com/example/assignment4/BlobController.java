@@ -193,11 +193,15 @@ public class BlobController {
                             iModel.popRedo();
                         }
                     }
-//                    } else if (keyEvent.getCode() == KeyCode.V) {
-//                        // event: v pressed for paste
-//                        // side effect: items from the clipboard are made the new selection and are added to the model
-//                        model.add(iModel.pasteFromClipboard());
-//                    }
+
+                    if (keyEvent.getCode() == KeyCode.C) {
+                        iModel.copyToClipboard();
+                    } else if (keyEvent.getCode() == KeyCode.X) {
+                        model.removeBlobList(iModel.cutToClipboard());
+                    } else if (keyEvent.getCode() == KeyCode.V) {
+                        model.addBlobList(iModel.pasteFromClipboard());
+                    }
+
                 }
                 else if(keyEvent.getCode() == KeyCode.DELETE || keyEvent.getCode() == KeyCode.BACK_SPACE){
                     deleteSelected();
