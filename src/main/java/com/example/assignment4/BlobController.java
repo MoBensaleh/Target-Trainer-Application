@@ -201,7 +201,6 @@ public class BlobController {
                 }
                 else if(keyEvent.getCode() == KeyCode.DELETE || keyEvent.getCode() == KeyCode.BACK_SPACE){
                     deleteSelected();
-
                 }
             }
         }
