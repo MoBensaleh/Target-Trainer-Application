@@ -115,7 +115,6 @@ public class BlobController {
             }
             case RESIZING -> {
                 model.resizeBlobs(iModel.getSelection(), dX);
-
             }
 
             case MOVING -> {

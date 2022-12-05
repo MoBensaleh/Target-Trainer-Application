@@ -15,11 +15,16 @@ public class BlobModel {
         tempLassoSelectionList = new ArrayList<>();
     }
 
-    public Blob addBlob(double x, double y) {
+    public Blob createBlob(double x, double y) {
         Blob newBlob = new Blob(x,y);
         blobs.add(newBlob);
         notifySubscribers();
         return newBlob;
+    }
+
+    public void addBlob(Blob blob) {
+        blobs.add(blob);
+        notifySubscribers();
     }
 
     public void removeBlob(Blob b) {

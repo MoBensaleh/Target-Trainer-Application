@@ -14,7 +14,12 @@ public class CreateCommand implements TargetCommand{
 
     @Override
     public void doIt() {
-        blob = model.addBlob(x, y);
+        if(blob == null){
+            blob = model.createBlob(x, y);
+        }
+        else{
+            model.addBlob(blob);
+        }
 
     }
 
