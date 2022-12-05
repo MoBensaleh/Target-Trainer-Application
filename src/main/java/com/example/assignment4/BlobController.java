@@ -36,8 +36,8 @@ public class BlobController {
      */
     public void deleteSelected() {
         if (iModel.getSelection().size()>0) {
-            model.deleteSelected(iModel.getSelection());
-//            iModel.setSelected(null);
+            iModel.addToUndo(new DeleteCommand(model, iModel.getSelection()));
+            iModel.peekUndo().doIt();
             currentState = State.READY;
         }
     }
@@ -162,8 +162,6 @@ public class BlobController {
             case READY -> {
                 if (keyEvent.isControlDown()) {
                     if (keyEvent.getCode() == KeyCode.Z) {
-                        // event: c pressed for copy
-                        // side effect: currently selected items are copied to the clipboard
                         if(iModel.undoStack.size() > 0){
                             iModel.addToRedo(iModel.peekUndo());
                             iModel.peekUndo().undo();
@@ -171,9 +169,6 @@ public class BlobController {
                         }
                     }
                     else if (keyEvent.getCode() == KeyCode.R) {
-                        // event: x pressed for cut
-                        // side effect: currently selected items are removed from the selection and added to the clipboard
-                        // and items are removed from the model
                         if(iModel.redoStack.size()>0){
                             iModel.addToUndo(iModel.peekRedo());
                             iModel.peekRedo().doIt();
@@ -185,6 +180,10 @@ public class BlobController {
 //                        // side effect: items from the clipboard are made the new selection and are added to the model
 //                        model.add(iModel.pasteFromClipboard());
 //                    }
+                }
+                else if(keyEvent.getCode() == KeyCode.DELETE || keyEvent.getCode() == KeyCode.BACK_SPACE){
+                    deleteSelected();
+
                 }
             }
         }

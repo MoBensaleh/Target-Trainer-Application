@@ -28,12 +28,6 @@ public class MainUI extends StackPane {
     }
 
     public void setOnKeyPressed(KeyEvent event){
-        // add event handler for when delete/backspace key is pressed
-        if (event.getCode() == KeyCode.DELETE || event.getCode() == KeyCode.BACK_SPACE) {
-            this.controller.deleteSelected();
-        }
-        else{
-            this.controller.handleKeyPressed(event);
-        }
+        this.controller.handleKeyPressed(event);
     }
 }

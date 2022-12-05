@@ -43,13 +43,21 @@ public class BlobModel {
         notifySubscribers();
     }
 
+    /**
+     * Delete the selected blob(s)
+     * @param selected blob(s) to be deleted
+     */
+    public void addSelected(List<Blob> selected) {
+        blobs.addAll(selected);
+        notifySubscribers();
+    }
 
 
     public void addSubscriber(BlobModelListener sub) {
         subscribers.add(sub);
     }
 
-    private void notifySubscribers() {
+    public void notifySubscribers() {
         subscribers.forEach(s -> s.modelChanged());
     }
 
