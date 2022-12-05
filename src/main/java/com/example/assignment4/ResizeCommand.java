@@ -3,24 +3,24 @@ package com.example.assignment4;
 import java.util.List;
 
 public class ResizeCommand implements TargetCommand {
-    List<Blob> blobs;
+    Blob blob;
     BlobModel model;
     double dx;
 
-    public ResizeCommand(BlobModel newModel, List<Blob> newBlobs, double newDX){
+    public ResizeCommand(BlobModel newModel, Blob newBlob, double newDX){
         model = newModel;
-        blobs = newBlobs;
+        blob = newBlob;
         dx = newDX;
     }
 
     @Override
     public void doIt() {
-        model.resizeBlobs(blobs, dx);
+        model.resizeBlob(blob, dx);
     }
 
     @Override
     public void undo() {
-        model.resizeBlobs(blobs, dx * -1);
+        model.resizeBlob(blob, dx * -1);
 
     }
 }

@@ -4,21 +4,21 @@ import java.util.List;
 
 public class DeleteCommand implements TargetCommand{
     BlobModel model;
-    List<Blob> blobs;
+    Blob blob;
 
-    public DeleteCommand(BlobModel newModel, List<Blob> newBlobs){
+    public DeleteCommand(BlobModel newModel, Blob newBlob){
         model = newModel;
-        blobs = newBlobs;
+        blob = newBlob;
     }
 
     @Override
     public void doIt() {
-        model.deleteSelected(blobs);
+        model.removeBlob(blob);
     }
 
     @Override
     public void undo() {
-        model.addSelected(blobs);
+        model.addBlob(blob);
 
     }
 }

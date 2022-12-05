@@ -116,6 +116,13 @@ public class BlobModel {
         notifySubscribers();
     }
 
+    public void resizeBlob(Blob selection, double dX) {
+        selection.resize(dX);
+        notifySubscribers();
+    }
+
+
+
     // part 2: add method (note there are two versions that do the same thing
     // the first uses streams, the second is more traditional)
     public List<Blob> areaHit(double x, double y) {

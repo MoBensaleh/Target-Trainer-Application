@@ -37,8 +37,12 @@ public class BlobController {
      */
     public void deleteSelected() {
         if (iModel.getSelection().size()>0) {
-            iModel.addToUndo(new DeleteCommand(model, iModel.getSelection()));
-            iModel.peekUndo().doIt();
+            ArrayList<TargetCommand> deleteCommands= new ArrayList<>();
+            iModel.getSelection().forEach(s->{
+                deleteCommands.add(new DeleteCommand(model, s));
+            });
+            iModel.addToUndo(deleteCommands);
+            iModel.peekUndo().forEach(TargetCommand::doIt);
             currentState = State.READY;
         }
     }
@@ -131,18 +135,28 @@ public class BlobController {
 
         switch (currentState) {
             case PREPARE_CREATE -> {
-                    iModel.addToUndo(new CreateCommand(model, event.getX(), event.getY()));
-                    iModel.peekUndo().doIt();
+                    ArrayList<TargetCommand> createCommand = new ArrayList<>();
+                    createCommand.add(new CreateCommand(model, event.getX(), event.getY()));
+                    iModel.addToUndo(createCommand);
+                    iModel.peekUndo().forEach(TargetCommand::doIt);
                     currentState = State.READY;
             }
             case RESIZING -> {
-                iModel.addToUndo(new ResizeCommand(model, iModel.getSelection(), dX));
+                ArrayList<TargetCommand> resizeCommands = new ArrayList<>();
+                iModel.getSelection().forEach(s->{
+                    resizeCommands.add(new ResizeCommand(model, s, dX));
+                });
+                iModel.addToUndo(resizeCommands);
                 currentState = State.READY;
 
             }
             case MOVING -> {
                 //iModel.unselect(); // part 1 - remove this so selection is persistent
-                iModel.addToUndo(new MoveCommand(model, iModel.getSelection(), dX,  dY));
+                ArrayList<TargetCommand> moveCommands = new ArrayList<>();
+                iModel.getSelection().forEach(s->{
+                    moveCommands.add(new MoveCommand(model, s, dX,  dY));
+                });
+                iModel.addToUndo(moveCommands);
                 currentState = State.READY;
             }
 
@@ -155,7 +169,6 @@ public class BlobController {
                 iModel.clearRubberBand();
                 iModel.setPathComplete();
                 List<Blob> lassoHitBlobs = model.getLassoHitList();
-//                System.out.println(lassoHitBlobs);
                 if(lassoHitBlobs.size() >= rubberHitBlobs.size()){
 
                     iModel.addSelected(lassoHitBlobs);
@@ -181,8 +194,8 @@ public class BlobController {
                 if (keyEvent.isControlDown()) {
                     if (keyEvent.getCode() == KeyCode.Z) {
                         if(iModel.undoStack.size() > 0){
+                            iModel.peekUndo().forEach(TargetCommand::undo);
                             iModel.addToRedo(iModel.peekUndo());
-                            iModel.peekUndo().undo();
                             iModel.popUndo();
                         }
                     }
@@ -190,7 +203,7 @@ public class BlobController {
                     else if (keyEvent.getCode() == KeyCode.R) {
                         if(iModel.redoStack.size()>0){
                             iModel.addToUndo(iModel.peekRedo());
-                            iModel.peekRedo().doIt();
+                            iModel.peekRedo().forEach(TargetCommand::doIt);
                             iModel.popRedo();
                         }
                     }
@@ -198,11 +211,20 @@ public class BlobController {
                     else if (keyEvent.getCode() == KeyCode.C) {
                         iModel.copyToClipboard();
                     } else if (keyEvent.getCode() == KeyCode.X) {
-                        iModel.addToUndo(new DeleteCommand(model, iModel.cutToClipboard()));
-                        iModel.peekUndo().doIt();
+                        ArrayList<TargetCommand> deleteCommands = new ArrayList<>();
+                        iModel.cutToClipboard().forEach(b ->{
+                            deleteCommands.add(new DeleteCommand(model, b));
+                        });
+                        iModel.addToUndo(deleteCommands);
+                        iModel.peekUndo().forEach(TargetCommand::doIt);
                     } else if (keyEvent.getCode() == KeyCode.V) {
-                        iModel.addToUndo(new CreateCommand(model, iModel.pasteFromClipboard()));
-                        iModel.peekUndo().doIt();
+                        ArrayList<TargetCommand> createCommands = new ArrayList<>();
+                        iModel.pasteFromClipboard().forEach(b->{
+                            createCommands.add(new CreateCommand(model, b.x, b.y));
+
+                        });
+                        iModel.addToUndo(createCommands);
+                        iModel.peekUndo().forEach(TargetCommand::doIt);
                     }
                 }
                 else if(keyEvent.getCode() == KeyCode.DELETE || keyEvent.getCode() == KeyCode.BACK_SPACE){

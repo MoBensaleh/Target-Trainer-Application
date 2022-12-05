@@ -12,8 +12,8 @@ public class InteractionModel {
     List<Point2D> points; // Lasso
     boolean pathComplete;
 
-    Stack<TargetCommand> undoStack;
-    Stack<TargetCommand> redoStack;
+    Stack<ArrayList<TargetCommand>> undoStack;
+    Stack<ArrayList<TargetCommand>> redoStack;
     TargetClipboard clipboard;
 
     public InteractionModel() {
@@ -187,19 +187,19 @@ public class InteractionModel {
         notifySubscribers();
     }
 
-    public void addToUndo(TargetCommand command){
-        undoStack.push(command);
+    public void addToUndo(ArrayList<TargetCommand> commands){
+        undoStack.push(commands);
     }
-    public TargetCommand peekUndo(){
+    public ArrayList<TargetCommand> peekUndo(){
         return undoStack.peek();
     }
     public void popUndo(){
         undoStack.pop();
     }
-    public void addToRedo(TargetCommand command){
-        redoStack.push(command);
+    public void addToRedo(ArrayList<TargetCommand> commands){
+        redoStack.push(commands);
     }
-    public TargetCommand peekRedo(){
+    public ArrayList<TargetCommand> peekRedo(){
         return redoStack.peek();
     }
 
