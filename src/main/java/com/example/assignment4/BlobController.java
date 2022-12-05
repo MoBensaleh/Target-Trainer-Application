@@ -186,6 +186,7 @@ public class BlobController {
                             iModel.popUndo();
                         }
                     }
+
                     else if (keyEvent.getCode() == KeyCode.R) {
                         if(iModel.redoStack.size()>0){
                             iModel.addToUndo(iModel.peekRedo());
@@ -194,14 +195,15 @@ public class BlobController {
                         }
                     }
 
-                    if (keyEvent.getCode() == KeyCode.C) {
+                    else if (keyEvent.getCode() == KeyCode.C) {
                         iModel.copyToClipboard();
                     } else if (keyEvent.getCode() == KeyCode.X) {
-                        model.removeBlobList(iModel.cutToClipboard());
+                        iModel.addToUndo(new DeleteCommand(model, iModel.cutToClipboard()));
+                        iModel.peekUndo().doIt();
                     } else if (keyEvent.getCode() == KeyCode.V) {
-                        model.addBlobList(iModel.pasteFromClipboard());
+                        iModel.addToUndo(new CreateCommand(model, iModel.pasteFromClipboard()));
+                        iModel.peekUndo().doIt();
                     }
-
                 }
                 else if(keyEvent.getCode() == KeyCode.DELETE || keyEvent.getCode() == KeyCode.BACK_SPACE){
                     deleteSelected();
