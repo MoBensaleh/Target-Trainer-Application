@@ -1,4 +1,4 @@
-package com.example.assignment4;
+package com.example.assignment4.models;
 
 public class RubberBandRect {
     /**
@@ -9,7 +9,8 @@ public class RubberBandRect {
     /*
         Points stored for the rectangle.
      */
-    double left, top, width, height;
+    private double left, top, width, height;
+
 
     /**
      * Default constructor that creates a rectangle at given x,y coordinates of width and height of 0.
@@ -37,6 +38,22 @@ public class RubberBandRect {
         this.top = Math.min(prevY, y);
         this.width = Math.abs(prevX - x);
         this.height = Math.abs(prevY - y);
+    }
+
+    public double getLeft() {
+        return left;
+    }
+
+    public double getTop() {
+        return top;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }
 

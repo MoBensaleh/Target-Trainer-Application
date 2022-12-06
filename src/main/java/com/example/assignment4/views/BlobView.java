@@ -1,17 +1,20 @@
-package com.example.assignment4;
+package com.example.assignment4.views;
 
+import com.example.assignment4.interfaces.IModelListener;
+import com.example.assignment4.models.RubberBandRect;
+import com.example.assignment4.controllers.BlobController;
+import com.example.assignment4.interfaces.BlobModelListener;
+import com.example.assignment4.models.Blob;
+import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.models.InteractionModel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class BlobView extends StackPane implements BlobModelListener, IModelListener {
     GraphicsContext gc;
@@ -36,8 +39,8 @@ public class BlobView extends StackPane implements BlobModelListener, IModelList
         if (rb != null) {
             gc.setStroke(Color.GREEN);
             gc.setFill(Color.TRANSPARENT);
-            gc.strokeRect(rb.left, rb.top, rb.width, rb.height);
-            gc.fillRect(rb.left, rb.top, rb.width, rb.height);
+            gc.strokeRect(rb.getLeft(), rb.getTop(), rb.getWidth(), rb.getHeight());
+            gc.fillRect(rb.getLeft(), rb.getTop(), rb.getWidth(), rb.getHeight());
         }
 
         // draw user path (points during creation, filled path when finished)
@@ -62,9 +65,9 @@ public class BlobView extends StackPane implements BlobModelListener, IModelList
             } else {
                 gc.setFill(Color.STEELBLUE);
             }
-            gc.fillOval(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+            gc.fillOval(b.getX() - b.getRadius(), b.getY() - b.getRadius(), b.getRadius() * 2, b.getRadius() * 2);
             gc.setFill(Color.WHITE);
-            gc.fillText(String.valueOf(blobIndex.getAndIncrement()), b.x-3.3, b.y+3.3);
+            gc.fillText(String.valueOf(blobIndex.getAndIncrement()), b.getX()-3.3, b.getY()+3.3);
 
             if(iModel.getPathComplete()){
                 if (isContainedWithinLasso(b)) {
@@ -94,8 +97,10 @@ public class BlobView extends StackPane implements BlobModelListener, IModelList
     }
 
     private boolean isContainedWithinLasso(Blob b) {
-        return reader.getColor((int) (b.x - b.r), (int) (b.y - b.r)).equals(Color.RED) && reader.getColor((int) (b.x + b.r), (int) (b.y - b.r)).equals(Color.RED)
-                && reader.getColor((int) (b.x - b.r), (int) (b.y + b.r)).equals(Color.RED) && reader.getColor((int) (b.x + b.r), (int) (b.y + b.r)).equals(Color.RED);
+        return reader.getColor((int) (b.getX() - b.getRadius()), (int) (b.getY() - b.getRadius())).equals(Color.RED) &&
+                reader.getColor((int) (b.getX() + b.getRadius()), (int) (b.getY() - b.getRadius())).equals(Color.RED)
+                && reader.getColor((int) (b.getX() - b.getRadius()), (int) (b.getY() + b.getRadius())).equals(Color.RED)
+                && reader.getColor((int) (b.getX() + b.getRadius()), (int) (b.getY() + b.getRadius())).equals(Color.RED);
     }
 
     public void setModel(BlobModel newModel) {

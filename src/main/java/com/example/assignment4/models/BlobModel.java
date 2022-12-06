@@ -1,4 +1,6 @@
-package com.example.assignment4;
+package com.example.assignment4.models;
+
+import com.example.assignment4.interfaces.BlobModelListener;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -138,10 +140,10 @@ public class BlobModel {
     public List<Blob> detectRubberBandHit(RubberBandRect rubberBand) {
         // calculate x, y coordinate of the rectangle (left and right)
         double x1, y1, x2, y2;
-        x1 = rubberBand.left;
-        y1 = rubberBand.top;
-        x2 = x1 + rubberBand.width;
-        y2 = y1 + rubberBand.height;
+        x1 = rubberBand.getLeft();
+        y1 = rubberBand.getTop();
+        x2 = x1 + rubberBand.getWidth();
+        y2 = y1 + rubberBand.getHeight();
         // add every ship that is within the rectangle
         return blobs.stream().filter(s -> s.isContainedWithinRect(x1, x2, y1, y2)).collect(Collectors.toList());
 

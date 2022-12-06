@@ -1,4 +1,4 @@
-package com.example.assignment4;
+package com.example.assignment4.models;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

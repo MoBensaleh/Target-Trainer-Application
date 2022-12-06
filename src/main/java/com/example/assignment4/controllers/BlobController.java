@@ -1,12 +1,19 @@
-package com.example.assignment4;
+package com.example.assignment4.controllers;
 
+import com.example.assignment4.command.CreateCommand;
+import com.example.assignment4.command.DeleteCommand;
+import com.example.assignment4.command.MoveCommand;
+import com.example.assignment4.command.ResizeCommand;
+import com.example.assignment4.interfaces.TargetCommand;
+import com.example.assignment4.models.Blob;
+import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.models.InteractionModel;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class BlobController {
     BlobModel model;
@@ -193,7 +200,7 @@ public class BlobController {
             case READY -> {
                 if (keyEvent.isControlDown()) {
                     if (keyEvent.getCode() == KeyCode.Z) {
-                        if(iModel.undoStack.size() > 0){
+                        if(iModel.getUndoStack().size() > 0){
                             iModel.peekUndo().forEach(TargetCommand::undo);
                             iModel.addToRedo(iModel.peekUndo());
                             iModel.popUndo();
@@ -201,7 +208,7 @@ public class BlobController {
                     }
 
                     else if (keyEvent.getCode() == KeyCode.R) {
-                        if(iModel.redoStack.size()>0){
+                        if(iModel.getRedoStack().size()>0){
                             iModel.addToUndo(iModel.peekRedo());
                             iModel.peekRedo().forEach(TargetCommand::doIt);
                             iModel.popRedo();
@@ -220,7 +227,7 @@ public class BlobController {
                     } else if (keyEvent.getCode() == KeyCode.V) {
                         ArrayList<TargetCommand> createCommands = new ArrayList<>();
                         iModel.pasteFromClipboard().forEach(b->{
-                            createCommands.add(new CreateCommand(model, b.x, b.y));
+                            createCommands.add(new CreateCommand(model, b.getX(), b.getY()));
 
                         });
                         iModel.addToUndo(createCommands);

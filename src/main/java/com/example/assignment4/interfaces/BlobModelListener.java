@@ -1,4 +1,4 @@
-package com.example.assignment4;
+package com.example.assignment4.interfaces;
 
 public interface BlobModelListener {
     void modelChanged();

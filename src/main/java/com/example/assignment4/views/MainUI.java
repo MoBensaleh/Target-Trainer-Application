@@ -1,11 +1,14 @@
-package com.example.assignment4;
+package com.example.assignment4.views;
 
-import javafx.scene.input.KeyCode;
+import com.example.assignment4.controllers.BlobController;
+import com.example.assignment4.interfaces.AppModeListener;
+import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.models.InteractionModel;
+import com.example.assignment4.views.BlobView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-public class MainUI extends StackPane {
+public class MainUI extends StackPane implements AppModeListener {
     BlobController controller;
 
     public MainUI() {
@@ -29,5 +32,10 @@ public class MainUI extends StackPane {
 
     public void setOnKeyPressed(KeyEvent event){
         this.controller.handleKeyPressed(event);
+    }
+
+    @Override
+    public void appModeChanged() {
+
     }
 }

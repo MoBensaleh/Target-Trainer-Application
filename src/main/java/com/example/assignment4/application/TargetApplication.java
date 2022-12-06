@@ -1,10 +1,11 @@
-package com.example.assignment4;
+package com.example.assignment4.application;
 
+import com.example.assignment4.views.MainUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
+public class TargetApplication extends Application {
     @Override
     public void start(Stage stage) {
         MainUI uiRoot = new MainUI();

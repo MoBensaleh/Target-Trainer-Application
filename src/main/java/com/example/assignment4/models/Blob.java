@@ -1,11 +1,9 @@
-package com.example.assignment4;
-
-import javafx.scene.paint.Color;
+package com.example.assignment4.models;
 
 public class Blob {
-    double x,y, initialX, initialY;
+    private double x,y, initialX, initialY;
 
-    double r;
+    private double r;
     public Blob(double nx, double ny) {
         x = nx;
         y = ny;
@@ -49,5 +47,16 @@ public class Blob {
 
     public Blob duplicate() {
         return new Blob(x, y);
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+    public double getRadius() {
+        return r;
     }
 }

@@ -1,5 +1,7 @@
-package com.example.assignment4;
+package com.example.assignment4.models;
 
+import com.example.assignment4.interfaces.IModelListener;
+import com.example.assignment4.interfaces.TargetCommand;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -205,6 +207,13 @@ public class InteractionModel {
 
     public void popRedo(){
         redoStack.pop();
+    }
+
+    public Stack<ArrayList<TargetCommand>> getUndoStack(){
+        return undoStack;
+    }
+    public Stack<ArrayList<TargetCommand>> getRedoStack(){
+        return redoStack;
     }
 
 }

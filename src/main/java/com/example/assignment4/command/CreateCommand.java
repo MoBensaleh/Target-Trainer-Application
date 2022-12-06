@@ -1,6 +1,10 @@
-package com.example.assignment4;
+package com.example.assignment4.command;
 
-public class CreateCommand implements TargetCommand{
+import com.example.assignment4.interfaces.TargetCommand;
+import com.example.assignment4.models.Blob;
+import com.example.assignment4.models.BlobModel;
+
+public class CreateCommand implements TargetCommand {
     BlobModel model;
     Blob blob;
     double x, y;

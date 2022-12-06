@@ -1,6 +1,8 @@
-package com.example.assignment4;
+package com.example.assignment4.command;
 
-import java.util.List;
+import com.example.assignment4.interfaces.TargetCommand;
+import com.example.assignment4.models.Blob;
+import com.example.assignment4.models.BlobModel;
 
 public class MoveCommand implements TargetCommand {
     Blob blob;
