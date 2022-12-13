@@ -4,7 +4,6 @@ module com.example.blobdemo2022 {
 
 
     opens com.example.assignment4 to javafx.fxml;
-    exports com.example.assignment4;
     exports com.example.assignment4.views;
     opens com.example.assignment4.views to javafx.fxml;
     exports com.example.assignment4.models;

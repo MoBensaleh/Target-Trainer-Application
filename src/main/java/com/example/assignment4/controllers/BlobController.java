@@ -8,6 +8,8 @@ import com.example.assignment4.interfaces.TargetCommand;
 import com.example.assignment4.models.Blob;
 import com.example.assignment4.models.BlobModel;
 import com.example.assignment4.models.InteractionModel;
+import com.example.assignment4.views.ReportView;
+import com.example.assignment4.views.TargetTrainerView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -232,6 +234,15 @@ public class BlobController {
                         });
                         iModel.addToUndo(createCommands);
                         iModel.peekUndo().forEach(TargetCommand::doIt);
+                    }
+                    else if (keyEvent.getCode() == KeyCode.T) {
+                        TargetTrainerView testView = new TargetTrainerView(model.getBlobs());
+                        // Show the test view
+                        iModel.setTestView(testView);
+                        iModel.setAppMode(InteractionModel.AppMode.TEST);
+                    }
+                    else if (keyEvent.getCode() == KeyCode.E) {
+                        iModel.setAppMode(InteractionModel.AppMode.EDIT);
                     }
                 }
                 else if(keyEvent.getCode() == KeyCode.DELETE || keyEvent.getCode() == KeyCode.BACK_SPACE){

@@ -1,13 +1,17 @@
 package com.example.assignment4.models;
 
+import com.example.assignment4.interfaces.AppModeListener;
 import com.example.assignment4.interfaces.IModelListener;
 import com.example.assignment4.interfaces.TargetCommand;
+import com.example.assignment4.views.ReportView;
+import com.example.assignment4.views.TargetTrainerView;
 import javafx.geometry.Point2D;
 
 import java.util.*;
 
 public class InteractionModel {
     ArrayList<IModelListener> subscribers;
+    ArrayList<AppModeListener> appModeSubscribers;
     ArrayList<Blob> selection; // part 1
     RubberBandRect rubberBandRect;
 
@@ -17,22 +21,77 @@ public class InteractionModel {
     Stack<ArrayList<TargetCommand>> undoStack;
     Stack<ArrayList<TargetCommand>> redoStack;
     TargetClipboard clipboard;
+    AppMode currentMode;
+    List<TrialRecord> trials;
+
+    ReportView reportView;
+    TargetTrainerView testView;
+
+    public enum AppMode {
+        EDIT, TEST, REPORT
+    }
+
 
     public InteractionModel() {
         subscribers = new ArrayList<>();
+        appModeSubscribers = new ArrayList<>();
         selection = new ArrayList<>(); // part 1
         points = new ArrayList<>();
         undoStack = new Stack<>();
         redoStack = new Stack<>();
         clipboard = new TargetClipboard();
+        currentMode = AppMode.EDIT;
+        this.trials = new ArrayList<>();
+    }
+
+    public void setAppMode(AppMode newMode){
+        if(newMode == AppMode.TEST){
+            this.trials = new ArrayList<>();
+        }
+        this.currentMode = newMode;
+        notifyModeSubscribers();
+    }
+
+    public void setReportView(ReportView newReportView){
+        reportView = newReportView;
+    }
+
+    public ReportView getReportView(){
+        return reportView;
+    }
+
+    public void setTestView(TargetTrainerView newTestView){
+        testView = newTestView;
+    }
+
+    public TargetTrainerView getTestView(){
+        return testView;
+    }
+    public void addTrialRecord(TrialRecord record) {
+        trials.add(record);
+    }
+
+    public List<TrialRecord> getTrialRecords() {
+        return trials;
+    }
+
+
+    public AppMode getCurrentAppMode(){
+        return currentMode;
     }
 
     public void addSubscriber(IModelListener sub) {
         subscribers.add(sub);
     }
+    public void addModeSubscriber(AppModeListener sub) {
+        appModeSubscribers.add(sub);
+    }
 
     private void notifySubscribers() {
-        subscribers.forEach(s -> s.iModelChanged());
+        subscribers.forEach(IModelListener::iModelChanged);
+    }
+    private void notifyModeSubscribers() {
+        appModeSubscribers.forEach(AppModeListener::appModeChanged);
     }
 
     /**

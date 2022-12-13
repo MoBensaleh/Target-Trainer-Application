@@ -16,14 +16,14 @@ import javafx.scene.paint.Color;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BlobView extends StackPane implements BlobModelListener, IModelListener {
+public class EditView extends StackPane implements BlobModelListener, IModelListener {
     GraphicsContext gc;
     Canvas myCanvas;
     BlobModel model;
     InteractionModel iModel;
     PixelReader reader; // for checking the offscreen bitmap's colours
 
-    public BlobView() {
+    public EditView() {
         myCanvas = new Canvas(1000,700);
         gc = myCanvas.getGraphicsContext2D();
         this.getChildren().add(myCanvas);

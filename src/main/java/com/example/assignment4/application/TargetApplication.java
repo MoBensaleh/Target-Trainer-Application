@@ -13,7 +13,7 @@ public class TargetApplication extends Application {
 
         scene.setOnKeyPressed(uiRoot::setOnKeyPressed);
 
-        stage.setTitle("Target Trainer");
+        stage.setTitle("Fitts' Law Target Trainer");
         stage.setScene(scene);
         stage.show();
     }

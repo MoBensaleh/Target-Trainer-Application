@@ -1,16 +1,22 @@
 package com.example.assignment4.models;
 
+import javafx.geometry.Point2D;
+
 public class Blob {
-    private double x,y, initialX, initialY;
+    private double x;
+    private double y;
 
     private double r;
     public Blob(double nx, double ny) {
         x = nx;
         y = ny;
-        initialX = nx;
-        initialY = ny;
         r = 30;
     }
+
+    public Point2D getCenter() {
+        return new Point2D(x, y);
+    }
+
 
     public void move(double dx, double dy) {
         x += dx;
