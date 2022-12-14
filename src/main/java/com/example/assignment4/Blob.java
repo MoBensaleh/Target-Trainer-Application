@@ -1,4 +1,4 @@
-package com.example.assignment4.models;
+package com.example.assignment4;
 
 import javafx.geometry.Point2D;
 

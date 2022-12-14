@@ -16,4 +16,5 @@ module com.example.blobdemo2022 {
     opens com.example.assignment4.command to javafx.fxml;
     exports com.example.assignment4.application;
     opens com.example.assignment4.application to javafx.fxml;
+    exports com.example.assignment4;
 }

@@ -1,9 +1,9 @@
 package com.example.assignment4.controllers;
 
-import com.example.assignment4.models.Blob;
+import com.example.assignment4.Blob;
 import com.example.assignment4.models.BlobModel;
 import com.example.assignment4.models.InteractionModel;
-import com.example.assignment4.models.TrialRecord;
+import com.example.assignment4.TrialRecord;
 import com.example.assignment4.views.ReportView;
 
 import java.util.List;

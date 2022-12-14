@@ -1,10 +1,10 @@
 package com.example.assignment4.views;
 
 import com.example.assignment4.interfaces.IModelListener;
-import com.example.assignment4.models.RubberBandRect;
+import com.example.assignment4.RubberBandRect;
 import com.example.assignment4.controllers.BlobController;
 import com.example.assignment4.interfaces.BlobModelListener;
-import com.example.assignment4.models.Blob;
+import com.example.assignment4.Blob;
 import com.example.assignment4.models.BlobModel;
 import com.example.assignment4.models.InteractionModel;
 import javafx.scene.canvas.Canvas;

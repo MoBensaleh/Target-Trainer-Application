@@ -1,5 +1,9 @@
 package com.example.assignment4.models;
 
+import com.example.assignment4.Blob;
+import com.example.assignment4.RubberBandRect;
+import com.example.assignment4.TargetClipboard;
+import com.example.assignment4.TrialRecord;
 import com.example.assignment4.interfaces.AppModeListener;
 import com.example.assignment4.interfaces.IModelListener;
 import com.example.assignment4.interfaces.TargetCommand;

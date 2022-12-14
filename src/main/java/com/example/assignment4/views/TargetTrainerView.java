@@ -1,7 +1,7 @@
 package com.example.assignment4.views;
 
 import com.example.assignment4.controllers.TargetTrainerController;
-import com.example.assignment4.models.Blob;
+import com.example.assignment4.Blob;
 import com.example.assignment4.models.BlobModel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
