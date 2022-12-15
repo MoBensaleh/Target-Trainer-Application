@@ -103,7 +103,7 @@ public class TargetController {
                         }
                     }
 
-                    // Check whether we are resizing or moving a blob for drag event
+                    // Check whether we are resizing or moving a target for drag event
                     if(event.isShiftDown()){
                         currentState = State.RESIZING;
                     }

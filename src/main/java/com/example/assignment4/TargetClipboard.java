@@ -23,7 +23,7 @@ public class TargetClipboard {
      * @param selectedTargets : list of targets to be added to the clipboard
      */
     public void addItems(ArrayList<Target> selectedTargets) {
-        // deep copy each blobs in the list and add it to the clipboard
+        // deep copy each target in the list and add it to the clipboard
         clipboard = selectedTargets.stream().map(Target::duplicate).collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -33,7 +33,7 @@ public class TargetClipboard {
      * @return : list of targets from the clipboard
      */
     public ArrayList<Target> getItems() {
-        // return a deep copy of each blob from the clipboard
+        // return a deep copy of each target from the clipboard
         return clipboard.stream().map(Target::duplicate).collect(Collectors.toCollection(ArrayList::new));
     }
 }
