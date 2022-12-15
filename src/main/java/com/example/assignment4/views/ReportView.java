@@ -10,9 +10,15 @@ import javafx.scene.layout.StackPane;
 
 import java.util.List;
 
+/**
+ * View class for the MVC Architecture. Displays Target Trainer results using a scatter chart.
+ */
 public class ReportView extends StackPane {
     private ScatterChart<Number, Number> chart;
 
+    /**
+     * Default constructor for this class.
+     */
     public ReportView(List<TrialRecord> records) {
         // create chart
         NumberAxis xAxis = new NumberAxis();
@@ -33,6 +39,11 @@ public class ReportView extends StackPane {
         this.getChildren().add(chart);
     }
 
+    /**
+     * Method returns all trial data
+     * @param records A list containing all trial records
+     * @return trial data to plot
+     */
     private XYChart.Series<Number, Number> getTrialData(List<TrialRecord> records) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName("Trials");

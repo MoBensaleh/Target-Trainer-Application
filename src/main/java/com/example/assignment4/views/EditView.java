@@ -2,10 +2,10 @@ package com.example.assignment4.views;
 
 import com.example.assignment4.interfaces.IModelListener;
 import com.example.assignment4.RubberBandRect;
-import com.example.assignment4.controllers.BlobController;
-import com.example.assignment4.interfaces.BlobModelListener;
-import com.example.assignment4.Blob;
-import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.controllers.TargetController;
+import com.example.assignment4.interfaces.TargetModelListener;
+import com.example.assignment4.Target;
+import com.example.assignment4.models.TargetModel;
 import com.example.assignment4.models.InteractionModel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,21 +16,36 @@ import javafx.scene.paint.Color;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EditView extends StackPane implements BlobModelListener, IModelListener {
+/**
+ * View class for the MVC Architecture. Draws a canvas of 1000x700 size where targets are drawn. Can be subscribed for
+ * model changes.
+ */
+public class EditView extends StackPane implements TargetModelListener, IModelListener {
+    /*
+        Instance variables to store canvas, graphic context and models from the MVC architecture.
+     */
     GraphicsContext gc;
     Canvas myCanvas;
-    BlobModel model;
+    Canvas checkCanvas;
+    TargetModel model;
     InteractionModel iModel;
     PixelReader reader; // for checking the offscreen bitmap's colours
 
+    /**
+     * Default constructor for this class.
+     */
     public EditView() {
         myCanvas = new Canvas(1000,700);
+        checkCanvas = new Canvas(1000, 700);
         gc = myCanvas.getGraphicsContext2D();
         this.getChildren().add(myCanvas);
         this.setStyle("-fx-background-color: lightblue");
 
     }
 
+    /**
+     * Method to draw targets on the canvas.
+     */
     private void draw() {
         gc.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
 
@@ -58,30 +73,32 @@ public class EditView extends StackPane implements BlobModelListener, IModelList
         }
 
         AtomicInteger blobIndex = new AtomicInteger(1);
-        model.getBlobs().forEach(b -> {
-            //if (b == iModel.getSelected()) { // part 1
-            if (iModel.isSelected(b)) { // part 1
-                gc.setFill(Color.TOMATO);
-            } else {
-                gc.setFill(Color.STEELBLUE);
-            }
-            gc.fillOval(b.getX() - b.getRadius(), b.getY() - b.getRadius(), b.getRadius() * 2, b.getRadius() * 2);
-            gc.setFill(Color.WHITE);
-            gc.fillText(String.valueOf(blobIndex.getAndIncrement()), b.getX()-3.3, b.getY()+3.3);
+        model.getTargets().forEach(b -> {
+            if(b.getX() >= 0 && b.getX() <= myCanvas.getWidth() && b.getY() >= 0 && b.getY() <= myCanvas.getHeight()){
+                if (iModel.isSelected(b)) {
+                    gc.setFill(Color.TOMATO);
+                } else {
+                    gc.setFill(Color.STEELBLUE);
+                }
+                gc.fillOval(b.getX() - b.getRadius(), b.getY() - b.getRadius(), b.getRadius() * 2, b.getRadius() * 2);
+                gc.setFill(Color.WHITE);
+                gc.fillText(String.valueOf(blobIndex.getAndIncrement()), b.getX()-3.3, b.getY()+3.3);
 
-            if(iModel.getPathComplete()){
-                if (isContainedWithinLasso(b)) {
-                    model.addToLassoHitList(b);
+                if(iModel.getPathComplete()){
+                    if (isContainedWithinLasso(b)) {
+                        model.addToLassoHitList(b);
+                    }
                 }
             }
-
         });
 
     }
 
+    /**
+     *  Offscreen bitmap for checking 'contains' for lasso-selection
+     */
     private void setupOffscreen() {
-        // offscreen bitmap for checking 'contains' on an oddly-shaped polygon
-        Canvas checkCanvas = new Canvas(1000, 700);
+        checkCanvas = new Canvas(1000, 700);
         GraphicsContext checkGC = checkCanvas.getGraphicsContext2D();
 
         checkGC.setFill(Color.RED);
@@ -96,32 +113,70 @@ public class EditView extends StackPane implements BlobModelListener, IModelList
         reader = buffer.getPixelReader();
     }
 
-    private boolean isContainedWithinLasso(Blob b) {
-        return reader.getColor((int) (b.getX() - b.getRadius()), (int) (b.getY() - b.getRadius())).equals(Color.RED) &&
-                reader.getColor((int) (b.getX() + b.getRadius()), (int) (b.getY() - b.getRadius())).equals(Color.RED)
-                && reader.getColor((int) (b.getX() - b.getRadius()), (int) (b.getY() + b.getRadius())).equals(Color.RED)
-                && reader.getColor((int) (b.getX() + b.getRadius()), (int) (b.getY() + b.getRadius())).equals(Color.RED);
+    /**
+     * Method to check whether a target is within lasso selection
+     * @param target target to be checked
+     * @return boolean for whether a target is within the lasso
+     */
+    private boolean isContainedWithinLasso(Target target) {
+        return reader.getColor((int) (target.getX() - target.getRadius()), (int) (target.getY() - target.getRadius())).equals(Color.RED) &&
+                reader.getColor((int) (target.getX() + target.getRadius()), (int) (target.getY() - target.getRadius())).equals(Color.RED)
+                && reader.getColor((int) (target.getX() - target.getRadius()), (int) (target.getY() + target.getRadius())).equals(Color.RED)
+                && reader.getColor((int) (target.getX() + target.getRadius()), (int) (target.getY() + target.getRadius())).equals(Color.RED);
     }
 
-    public void setModel(BlobModel newModel) {
+    /**
+     * Method to store reference to the model.
+     *
+     * @param newModel : model of this view
+     */
+    public void setModel(TargetModel newModel) {
         model = newModel;
     }
 
+    /**
+     * Method to store reference to the iModel.
+     *
+     * @param newIModel : iModel of this view
+     */
     public void setIModel(InteractionModel newIModel) {
         iModel = newIModel;
     }
 
+    /**
+     * Method runs when model has a change.
+     */
     @Override
     public void modelChanged() {
         draw();
     }
 
+    /**
+     * Method runs when iModel has a change.
+     */
     @Override
     public void iModelChanged() {
         draw();
     }
 
-    public void setController(BlobController controller) {
+    /**
+     * Method to set up event handlers for the view via the controller.
+     *
+     * @param controller : controller to trigger events
+     */
+    public void setController(TargetController controller) {
+
+        // re-draw canvas when application is resized
+        this.widthProperty().addListener((observable, oldVal, newVal) -> {
+            myCanvas.setWidth(newVal.doubleValue());
+            checkCanvas.setWidth(newVal.doubleValue());
+            draw();
+        });
+        this.heightProperty().addListener((observable, oldVal, newVal) -> {
+            myCanvas.setHeight(newVal.doubleValue());
+            checkCanvas.setHeight(newVal.doubleValue());
+            draw();
+        });
         myCanvas.setOnMousePressed(controller::handlePressed);
         myCanvas.setOnMouseDragged(controller::handleDragged);
         myCanvas.setOnMouseReleased(controller::handleReleased);

@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
  * Class to represent a clipboard to allow cut, copy and paste of blobs in the application.
  */
 public class TargetClipboard {
-    // List of blobs that are copied or cut
-    ArrayList<Blob> clipboard;
+    // List of targets that are copied or cut
+    ArrayList<Target> clipboard;
 
     /**
      * Default constructor for this class. Initializes the clipboard ArrayList.
@@ -18,22 +18,22 @@ public class TargetClipboard {
     }
 
     /**
-     * Method to add blobs to the clipboard.
+     * Method to add targets to the clipboard.
      *
-     * @param selectedBlobs : list of blobs to be added to the clipboard
+     * @param selectedTargets : list of targets to be added to the clipboard
      */
-    public void addItems(ArrayList<Blob> selectedBlobs) {
+    public void addItems(ArrayList<Target> selectedTargets) {
         // deep copy each blobs in the list and add it to the clipboard
-        clipboard = selectedBlobs.stream().map(Blob::duplicate).collect(Collectors.toCollection(ArrayList::new));
+        clipboard = selectedTargets.stream().map(Target::duplicate).collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
-     * Method to get blobs from the clipboard.
+     * Method to get targets from the clipboard.
      *
-     * @return : list of blobs from the clipboard
+     * @return : list of targets from the clipboard
      */
-    public ArrayList<Blob> getItems() {
+    public ArrayList<Target> getItems() {
         // return a deep copy of each blob from the clipboard
-        return clipboard.stream().map(Blob::duplicate).collect(Collectors.toCollection(ArrayList::new));
+        return clipboard.stream().map(Target::duplicate).collect(Collectors.toCollection(ArrayList::new));
     }
 }

@@ -5,6 +5,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Application class which starts up a JavaFX stage with a canvas to create, move, select, and resize Targets or a group of Targets.
+ */
 public class TargetApplication extends Application {
     @Override
     public void start(Stage stage) {

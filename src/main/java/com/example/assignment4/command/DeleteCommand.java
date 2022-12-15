@@ -1,26 +1,29 @@
 package com.example.assignment4.command;
 
 import com.example.assignment4.interfaces.TargetCommand;
-import com.example.assignment4.Blob;
-import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.Target;
+import com.example.assignment4.models.TargetModel;
 
+/**
+ * Target Command class representing a delete command for targets
+ */
 public class DeleteCommand implements TargetCommand {
-    BlobModel model;
-    Blob blob;
+    TargetModel model;
+    Target target;
 
-    public DeleteCommand(BlobModel newModel, Blob newBlob){
+    public DeleteCommand(TargetModel newModel, Target newTarget){
         model = newModel;
-        blob = newBlob;
+        target = newTarget;
     }
 
     @Override
     public void doIt() {
-        model.removeBlob(blob);
+        model.removeTarget(target);
     }
 
     @Override
     public void undo() {
-        model.addBlob(blob);
+        model.addBlob(target);
 
     }
 }

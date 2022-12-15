@@ -1,27 +1,26 @@
 package com.example.assignment4.views;
 
-import com.example.assignment4.controllers.BlobController;
+import com.example.assignment4.controllers.TargetController;
 import com.example.assignment4.controllers.TargetTrainerController;
 import com.example.assignment4.interfaces.AppModeListener;
-import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.models.TargetModel;
 import com.example.assignment4.models.InteractionModel;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
 public class MainUI extends StackPane implements AppModeListener {
-    BlobController controller;
-    BlobModel model;
+    TargetController controller;
+    TargetModel model;
     InteractionModel iModel;
     EditView editView;
-    TargetTrainerView testView;
-    ReportView reportView;
     TargetTrainerController targetTrainerController;
 
-
+    /**
+     * Default constructor for this class.
+     */
     public MainUI() {
-
-        model = new BlobModel();
-        controller = new BlobController();
+        model = new TargetModel();
+        controller = new TargetController();
         targetTrainerController = new TargetTrainerController();
         editView = new EditView();
         iModel = new InteractionModel();
@@ -41,10 +40,17 @@ public class MainUI extends StackPane implements AppModeListener {
         this.getChildren().add(editView);
     }
 
+    /**
+     * Method listens for key events and calls controller handler
+     * @param event key event
+     */
     public void setOnKeyPressed(KeyEvent event){
         this.controller.handleKeyPressed(event);
     }
 
+    /**
+     * Method runs when app mode has a change.
+     */
     @Override
     public void appModeChanged() {
         this.getChildren().clear();

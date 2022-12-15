@@ -1,17 +1,20 @@
 package com.example.assignment4.command;
 
 import com.example.assignment4.interfaces.TargetCommand;
-import com.example.assignment4.Blob;
-import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.Target;
+import com.example.assignment4.models.TargetModel;
 
+/**
+ * Target Command class representing a move command for targets
+ */
 public class MoveCommand implements TargetCommand {
-    Blob blob;
-    BlobModel model;
+    Target target;
+    TargetModel model;
     double dx, dy;
 
-    public MoveCommand(BlobModel newModel, Blob newBlob, double newDX, double newDY){
+    public MoveCommand(TargetModel newModel, Target newTarget, double newDX, double newDY){
         model = newModel;
-        blob = newBlob;
+        target = newTarget;
         dx = newDX;
         dy = newDY;
 
@@ -19,12 +22,12 @@ public class MoveCommand implements TargetCommand {
 
     @Override
     public void doIt() {
-        model.moveBlob(blob, dx, dy);
+        model.moveTarget(target, dx, dy);
     }
 
     @Override
     public void undo() {
-        model.moveBlob(blob, dx * -1 , dy * -1);
+        model.moveTarget(target, dx * -1 , dy * -1);
 
     }
 }

@@ -1,7 +1,7 @@
 package com.example.assignment4.controllers;
 
-import com.example.assignment4.Blob;
-import com.example.assignment4.models.BlobModel;
+import com.example.assignment4.Target;
+import com.example.assignment4.models.TargetModel;
 import com.example.assignment4.models.InteractionModel;
 import com.example.assignment4.TrialRecord;
 import com.example.assignment4.views.ReportView;
@@ -11,23 +11,34 @@ import java.util.List;
 public class TargetTrainerController {
     private InteractionModel iModel;
     private long startTime;
-    private Blob previousTarget;
-    private BlobModel model;
+    private Target previousTarget;
+    private TargetModel model;
 
-    public TargetTrainerController() {
-    }
-
+    /**
+     * Method to set the iModel for this controller.
+     *
+     * @param newIModel : iModel to be saved
+     */
     public void setIModel(InteractionModel newIModel) {
         iModel = newIModel;
     }
-    public void setModel(BlobModel newModel) {
+
+    /**
+     * Method to set the Model for this controller.
+     *
+     * @param newModel : Model to be saved
+     */
+    public void setModel(TargetModel newModel) {
         model = newModel;
     }
 
-    public void handleClick(Blob currentTarget) {
-        System.out.println(currentTarget);
-        // check if all targets have been shown
-        // record elapsed time and index of difficulty for current trial
+
+    /**
+     * Method to handle mouse presses in the target trainer view.
+     *
+     * @param currentTarget  : Target clicked
+     */
+    public void handleClick(Target currentTarget) {
         if (startTime == 0) {
             // first click on first target, start timer
             startTime = System.currentTimeMillis();
@@ -42,11 +53,10 @@ public class TargetTrainerController {
             // update start time for next trial
             startTime = endTime;
             // show next target
-
             previousTarget = currentTarget;
 
-            System.out.println(iModel.getTrialRecords());
-            if (iModel.getTrialRecords().size()+1 == model.getBlobs().size()) {
+            // Upon trials completion, report target trainer findings and reset trainer
+            if (iModel.getTrialRecords().size()+1 == model.getTargets().size()) {
                 startTime = 0;
                 previousTarget = null;
                 // switch to report view
@@ -61,10 +71,14 @@ public class TargetTrainerController {
 
     }
 
-    private double calculateID(Blob previous, Blob current) {
+    /**
+     * Method to calculate the index of difficulty of a click according to Fitts' law
+     *
+     * @param previous     : previous target clicked before current target
+     * @param current     : current target
+     */
+    private double calculateID(Target previous, Target current) {
         // calculate distance and width
-//        System.out.println(previous);
-//        System.out.println(current);
         double distance = previous.getCenter().distance(current.getCenter());
         double width = current.getRadius()*2;
         // calculate index of difficulty
