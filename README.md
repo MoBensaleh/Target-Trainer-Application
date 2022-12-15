@@ -1,4 +1,4 @@
-# Ship Application
+# Target Trainer Application
 
 A JavaFX application that enables users to design and evaluate target-based user interfaces. The app features an editor that allows users to create, arrange, and modify targets, as well as a testing mode that measures their performance using Fitts' Law. Other features include undo/redo and clipboard support, making it easy to experiment with different designs and see how they affect user efficiency and accuracy.
 
