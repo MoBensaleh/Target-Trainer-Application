@@ -1,6 +1,6 @@
 # Ship Application
 
-A JavaFX application which lets users create, move, resize, and select targets. Supports undo/redo and a built-in clipboard.
+A JavaFX application that enables users to design and evaluate target-based user interfaces. The app features an editor that allows users to create, arrange, and modify targets, as well as a testing mode that measures their performance using Fitts' Law. Other features include undo/redo and clipboard support, making it easy to experiment with different designs and see how they affect user efficiency and accuracy.
 ![Screenshot](images/img1.png)
 ![Screenshot](images/img4.png)
 
@@ -8,6 +8,10 @@ A JavaFX application which lets users create, move, resize, and select targets. 
 * This repository contains all the code for the application which was built using Java with JavaFX framework.
 * Implemented using Model-View-Controller architecture, Publish-Subscribe communication model and a 2D immediate-mode GUI.
 * Selected targets are drawn with a red fill.
+
+## Application Modes
+1. `Control + E` sets the application to Edit Mode.
+1. `Control + T` sets the application to Test Mode which allows the user to begin a "Target Trainer" session.
 
 ## Supported Actions
 1. Creation of targets by `Shift-Clicking`.
