@@ -156,7 +156,6 @@ public class InteractionModel {
      * @param selectedTargets : targets to be selected
      */
     public void addSelected(List<Target> selectedTargets) {
-        System.out.println(selection);
         for(Target s : selectedTargets){
             // remove the selected target if it is already in selection
             if (selection.contains(s)) {
