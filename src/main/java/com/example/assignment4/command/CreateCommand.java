@@ -26,7 +26,7 @@ public class CreateCommand implements TargetCommand {
             target = model.createTarget(x, y);
         }
         else{
-            model.addBlob(target);
+            model.addTarget(target);
         }
     }
 

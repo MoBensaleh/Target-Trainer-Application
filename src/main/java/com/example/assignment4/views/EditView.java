@@ -72,7 +72,7 @@ public class EditView extends StackPane implements TargetModelListener, IModelLi
             setupOffscreen();
         }
 
-        AtomicInteger blobIndex = new AtomicInteger(1);
+        AtomicInteger targetIdx = new AtomicInteger(1);
         model.getTargets().forEach(b -> {
             if(b.getX() >= 0 && b.getX() <= myCanvas.getWidth() && b.getY() >= 0 && b.getY() <= myCanvas.getHeight()){
                 if (iModel.isSelected(b)) {
@@ -82,7 +82,7 @@ public class EditView extends StackPane implements TargetModelListener, IModelLi
                 }
                 gc.fillOval(b.getX() - b.getRadius(), b.getY() - b.getRadius(), b.getRadius() * 2, b.getRadius() * 2);
                 gc.setFill(Color.WHITE);
-                gc.fillText(String.valueOf(blobIndex.getAndIncrement()), b.getX()-3.3, b.getY()+3.3);
+                gc.fillText(String.valueOf(targetIdx.getAndIncrement()), b.getX()-3.3, b.getY()+3.3);
 
                 if(iModel.getPathComplete()){
                     if (isContainedWithinLasso(b)) {

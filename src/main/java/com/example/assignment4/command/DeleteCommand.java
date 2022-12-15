@@ -23,7 +23,7 @@ public class DeleteCommand implements TargetCommand {
 
     @Override
     public void undo() {
-        model.addBlob(target);
+        model.addTarget(target);
 
     }
 }

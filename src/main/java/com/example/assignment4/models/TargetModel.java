@@ -46,7 +46,7 @@ public class TargetModel {
      *
      * @param target : target to be added
      */
-    public void addBlob(Target target) {
+    public void addTarget(Target target) {
         targets.add(target);
         notifySubscribers();
     }
@@ -105,7 +105,7 @@ public class TargetModel {
      * @param dX    : Distance to move x coordinate by
      * @param dY    : Distance to move y coordinate by
      */
-    public void moveBlobs(List<Target> targets, double dX, double dY) {
+    public void moveTargets(List<Target> targets, double dX, double dY) {
         targets.forEach(t -> t.move(dX,dY));
         notifySubscribers();
     }
@@ -177,7 +177,7 @@ public class TargetModel {
     }
 
     /**
-     * Method to return all blobs that are within the given lasso for lasso selection.
+     * Method to return all targets that are within the given lasso for lasso selection.
      */
     public ArrayList<Target> getLassoHitList() {
         return tempLassoSelectionList;

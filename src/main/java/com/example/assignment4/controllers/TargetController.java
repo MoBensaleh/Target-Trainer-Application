@@ -65,7 +65,7 @@ public class TargetController {
 
 
     /**
-     * Delete the selected blob(s) if there is one
+     * Delete the selected target(s) if there is one
      */
     public void deleteSelected() {
         if (iModel.getSelection().size()>0) {
@@ -147,7 +147,7 @@ public class TargetController {
             }
 
             case MOVING -> {
-                model.moveBlobs(iModel.getSelection(), dX, dY);
+                model.moveTargets(iModel.getSelection(), dX, dY);
             }
             // Mouse move on Rubber state resizes the rubber-band rectangle used for selection
             case RUBBER_BAND_LASSO -> iModel.resizeRubberBandLasso(rubberX, rubberY, event.getX(), event.getY());
