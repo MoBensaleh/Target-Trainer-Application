@@ -1,6 +1,6 @@
-package com.example.assignment4.views;
+package com.example.targetapplication.views;
 
-import com.example.assignment4.TrialRecord;
+import com.example.targetapplication.TrialRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.NumberAxis;

@@ -1,14 +1,14 @@
-package com.example.assignment4.controllers;
+package com.example.targetapplication.controllers;
 
-import com.example.assignment4.command.CreateCommand;
-import com.example.assignment4.command.DeleteCommand;
-import com.example.assignment4.command.MoveCommand;
-import com.example.assignment4.command.ResizeCommand;
-import com.example.assignment4.interfaces.TargetCommand;
-import com.example.assignment4.Target;
-import com.example.assignment4.models.TargetModel;
-import com.example.assignment4.models.InteractionModel;
-import com.example.assignment4.views.TargetTrainerView;
+import com.example.targetapplication.command.CreateCommand;
+import com.example.targetapplication.command.DeleteCommand;
+import com.example.targetapplication.command.MoveCommand;
+import com.example.targetapplication.command.ResizeCommand;
+import com.example.targetapplication.interfaces.TargetCommand;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.models.TargetModel;
+import com.example.targetapplication.models.InteractionModel;
+import com.example.targetapplication.views.TargetTrainerView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;

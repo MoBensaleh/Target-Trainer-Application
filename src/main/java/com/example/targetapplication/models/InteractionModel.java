@@ -1,14 +1,14 @@
-package com.example.assignment4.models;
+package com.example.targetapplication.models;
 
-import com.example.assignment4.Target;
-import com.example.assignment4.RubberBandRect;
-import com.example.assignment4.TargetClipboard;
-import com.example.assignment4.TrialRecord;
-import com.example.assignment4.interfaces.AppModeListener;
-import com.example.assignment4.interfaces.IModelListener;
-import com.example.assignment4.interfaces.TargetCommand;
-import com.example.assignment4.views.ReportView;
-import com.example.assignment4.views.TargetTrainerView;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.RubberBandRect;
+import com.example.targetapplication.TargetClipboard;
+import com.example.targetapplication.TrialRecord;
+import com.example.targetapplication.interfaces.AppModeListener;
+import com.example.targetapplication.interfaces.IModelListener;
+import com.example.targetapplication.interfaces.TargetCommand;
+import com.example.targetapplication.views.ReportView;
+import com.example.targetapplication.views.TargetTrainerView;
 import javafx.geometry.Point2D;
 
 import java.util.*;

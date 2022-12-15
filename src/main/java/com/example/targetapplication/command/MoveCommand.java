@@ -1,8 +1,8 @@
-package com.example.assignment4.command;
+package com.example.targetapplication.command;
 
-import com.example.assignment4.interfaces.TargetCommand;
-import com.example.assignment4.Target;
-import com.example.assignment4.models.TargetModel;
+import com.example.targetapplication.interfaces.TargetCommand;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.models.TargetModel;
 
 /**
  * Target Command class representing a move command for targets

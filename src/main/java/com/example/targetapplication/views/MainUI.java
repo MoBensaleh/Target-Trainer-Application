@@ -1,10 +1,10 @@
-package com.example.assignment4.views;
+package com.example.targetapplication.views;
 
-import com.example.assignment4.controllers.TargetController;
-import com.example.assignment4.controllers.TargetTrainerController;
-import com.example.assignment4.interfaces.AppModeListener;
-import com.example.assignment4.models.TargetModel;
-import com.example.assignment4.models.InteractionModel;
+import com.example.targetapplication.controllers.TargetController;
+import com.example.targetapplication.controllers.TargetTrainerController;
+import com.example.targetapplication.interfaces.AppModeListener;
+import com.example.targetapplication.models.TargetModel;
+import com.example.targetapplication.models.InteractionModel;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 

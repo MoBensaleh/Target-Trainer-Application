@@ -1,8 +1,8 @@
-package com.example.assignment4.views;
+package com.example.targetapplication.views;
 
-import com.example.assignment4.controllers.TargetTrainerController;
-import com.example.assignment4.Target;
-import com.example.assignment4.models.TargetModel;
+import com.example.targetapplication.controllers.TargetTrainerController;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.models.TargetModel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;

@@ -1,8 +1,8 @@
-package com.example.assignment4.models;
+package com.example.targetapplication.models;
 
-import com.example.assignment4.Target;
-import com.example.assignment4.RubberBandRect;
-import com.example.assignment4.interfaces.TargetModelListener;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.RubberBandRect;
+import com.example.targetapplication.interfaces.TargetModelListener;
 
 import java.util.*;
 import java.util.stream.Collectors;

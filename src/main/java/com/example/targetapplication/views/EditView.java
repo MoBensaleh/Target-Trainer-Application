@@ -1,12 +1,12 @@
-package com.example.assignment4.views;
+package com.example.targetapplication.views;
 
-import com.example.assignment4.interfaces.IModelListener;
-import com.example.assignment4.RubberBandRect;
-import com.example.assignment4.controllers.TargetController;
-import com.example.assignment4.interfaces.TargetModelListener;
-import com.example.assignment4.Target;
-import com.example.assignment4.models.TargetModel;
-import com.example.assignment4.models.InteractionModel;
+import com.example.targetapplication.interfaces.IModelListener;
+import com.example.targetapplication.RubberBandRect;
+import com.example.targetapplication.controllers.TargetController;
+import com.example.targetapplication.interfaces.TargetModelListener;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.models.TargetModel;
+import com.example.targetapplication.models.InteractionModel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelReader;

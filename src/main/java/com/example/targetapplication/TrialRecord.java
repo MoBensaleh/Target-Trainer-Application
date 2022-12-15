@@ -1,4 +1,4 @@
-package com.example.assignment4;
+package com.example.targetapplication;
 
 /**
  * Class to represent a trial for the target trainer.

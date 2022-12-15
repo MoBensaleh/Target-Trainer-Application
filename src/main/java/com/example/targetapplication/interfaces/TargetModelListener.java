@@ -1,4 +1,4 @@
-package com.example.assignment4.interfaces;
+package com.example.targetapplication.interfaces;
 
 /**
  * Interface for all subscribers to get notified that the model has changed.

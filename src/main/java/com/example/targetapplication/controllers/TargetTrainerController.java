@@ -1,10 +1,10 @@
-package com.example.assignment4.controllers;
+package com.example.targetapplication.controllers;
 
-import com.example.assignment4.Target;
-import com.example.assignment4.models.TargetModel;
-import com.example.assignment4.models.InteractionModel;
-import com.example.assignment4.TrialRecord;
-import com.example.assignment4.views.ReportView;
+import com.example.targetapplication.Target;
+import com.example.targetapplication.models.TargetModel;
+import com.example.targetapplication.models.InteractionModel;
+import com.example.targetapplication.TrialRecord;
+import com.example.targetapplication.views.ReportView;
 
 import java.util.List;
 

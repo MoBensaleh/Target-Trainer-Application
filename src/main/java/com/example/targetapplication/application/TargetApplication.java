@@ -1,6 +1,6 @@
-package com.example.assignment4.application;
+package com.example.targetapplication.application;
 
-import com.example.assignment4.views.MainUI;
+import com.example.targetapplication.views.MainUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

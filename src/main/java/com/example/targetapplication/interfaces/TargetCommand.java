@@ -1,4 +1,4 @@
-package com.example.assignment4.interfaces;
+package com.example.targetapplication.interfaces;
 
 /**
  * Interface for actions related to targets (create, delete, move, resize).
