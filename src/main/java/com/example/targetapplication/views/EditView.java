@@ -119,10 +119,10 @@ public class EditView extends StackPane implements TargetModelListener, IModelLi
      * @return boolean for whether a target is within the lasso
      */
     private boolean isContainedWithinLasso(Target target) {
-        return reader.getColor((int) (target.getX() - target.getRadius()), (int) (target.getY() - target.getRadius())).equals(Color.RED) &&
-                reader.getColor((int) (target.getX() + target.getRadius()), (int) (target.getY() - target.getRadius())).equals(Color.RED)
-                && reader.getColor((int) (target.getX() - target.getRadius()), (int) (target.getY() + target.getRadius())).equals(Color.RED)
-                && reader.getColor((int) (target.getX() + target.getRadius()), (int) (target.getY() + target.getRadius())).equals(Color.RED);
+        return reader.getColor((int) (target.getX() - target.getRadius()), (int) (target.getY())).equals(Color.RED) &&
+                reader.getColor((int) (target.getX() + target.getRadius()), (int) (target.getY())).equals(Color.RED)
+                && reader.getColor((int) (target.getX()), (int) (target.getY() + target.getRadius())).equals(Color.RED)
+                && reader.getColor((int) (target.getX()), (int) (target.getY() - target.getRadius())).equals(Color.RED);
     }
 
     /**
