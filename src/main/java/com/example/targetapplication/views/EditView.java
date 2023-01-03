@@ -60,8 +60,10 @@ public class EditView extends StackPane implements TargetModelListener, IModelLi
 
         // draw user path (points during creation, filled path when finished)
         if (!iModel.getPathComplete()) {
-            gc.setFill(Color.RED);
-            iModel.getPath().forEach(p -> gc.fillOval(p.getX(),p.getY(),4,4));
+            gc.beginPath();
+            iModel.getPath().forEach(p -> gc.lineTo(p.getX(), p.getY()));
+            gc.setStroke(Color.RED);
+            gc.stroke();
         } else {
             gc.setFill(Color.RED);
             gc.beginPath();
